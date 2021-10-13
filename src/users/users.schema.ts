@@ -2,7 +2,7 @@ import { Get } from '@nestjs/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 
-export type UsersDocument = Users & mongoose.Document;
+export type UsersDocument = Users & Document;
 
 @Schema()
 export class Users {
