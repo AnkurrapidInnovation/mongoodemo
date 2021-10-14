@@ -12,6 +12,11 @@ export class Users {
   @Prop({ trim: true })
   lastName: string;
 
+  // cars
+  // sports
+  // qualification
+
+
   
 }
 
