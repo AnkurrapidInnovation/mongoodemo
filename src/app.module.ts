@@ -5,12 +5,14 @@ import dbConfig from '../dbconfig';
 import {UsersModule} from './users/users.module'
 import { MongooseModule } from '@nestjs/mongoose';
 import {SportsModule} from './sports/sports.module'
+import {CarsModule} from './cars/cars.module'
 
 
 @Module({
   imports: [
     UsersModule,
     SportsModule,
+    CarsModule,
     // MongooseModule.forRoot('mongodb://localhost:27017/mongodemo')
     MongooseModule.forRoot(dbConfig.dbConnectionUrl()),
 

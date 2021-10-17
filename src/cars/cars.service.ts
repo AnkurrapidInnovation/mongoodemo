@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Sports, SportsDocument } from './sports.schema';
-import   mongoose from 'mongoose';
-
+import mongoose from 'mongoose';
+import { Cars, CarsDocument } from './cars.schema';
 
 @Injectable()
-export class SportsService {
+export class CarsService {
   constructor(
-    @InjectModel(Sports.name)
-    private readonly sportsModel: Model<SportsDocument>,
+    @InjectModel(Cars.name)
+    private readonly carsModel: Model<CarsDocument>,
   ) {}
 
   // async createUser(user:Users):Promise<Users>{
@@ -34,7 +33,7 @@ export class SportsService {
 
   async createSport(obj): Promise<any> {
     try {
-      let createSport = await this.sportsModel.create(obj);
+      let createSport = await this.carsModel.create(obj);
       return createSport;
     } catch (e) {
       throw new Error(e);
@@ -69,18 +68,16 @@ export class SportsService {
   //     ])
   //   }
 
-
-
-  async viewAllSports(): Promise<Sports[]> {
+  async viewAllSports(): Promise<Cars[]> {
     try {
-      const sports = await this.sportsModel.aggregate([
+      const sports = await this.carsModel.aggregate([
         {
           $lookup: {
             from: 'users',
             localField: 'usersId',
             foreignField: '_id',
-            as: 'usersDetails'
-          }
+            as: 'usersDetails',
+          },
         },
         // {
         //   $project: {
@@ -96,7 +93,6 @@ export class SportsService {
       throw new Error(e);
     }
   }
-
 
   // async viewAllSports(): Promise<Sports[]> {
   //   try {
@@ -136,14 +132,11 @@ export class SportsService {
   //   }
   // }
 
-
-  
-
   // async allSports(): Promise<Sports[]> {
   //   try {
   //     return this.sportsModel.find().exec();
   //   } catch (e) {
   //     throw new Error(e);
   //   }
-   //}
+  //}
 }

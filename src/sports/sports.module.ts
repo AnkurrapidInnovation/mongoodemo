@@ -10,9 +10,6 @@ import { ErrorObj } from '../errModel';
     MongooseModule.forFeature([{ name: Sports.name, schema: SportsSchema }]),
   ],
   controllers: [SportsController],
-  providers: 
-  [SportsService,
-    ErrorObj
-                  ],
+  providers: [SportsService, ErrorObj],
 })
 export class SportsModule {}

@@ -1,22 +1,26 @@
-// import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-// import { Document } from 'mongoose';
-// import { Users } from 'src/users/users.schema';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { Users } from 'src/users/users.schema';
+import * as mongoose from 'mongoose';
 
-// export type CarDocument = Car & Document;
 
-// @Schema()
-// export class Car extends Users {
-//   @Prop()
-//   name: string;
+export type CarsDocument = Cars & Document;
 
-//   @Prop()
-//   price: number;
+@Schema()
+export class Cars {
+  @Prop()
+  name: string;
 
-//   @Prop()
-//   piece:number;
+  @Prop()
+  price: Number;
 
-// //   @Prop()
-// //   breed: string;
-// }
+  @Prop()
+  piece:number;
 
-// export const CarSchema = SchemaFactory.createForClass(Car);
+  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users' })
+  usersId:Users;
+
+
+}
+
+export const CarsSchema = SchemaFactory.createForClass(Cars);

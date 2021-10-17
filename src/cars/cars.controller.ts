@@ -1,12 +1,11 @@
 import { Body, Controller, Get, Post, Request } from '@nestjs/common';
-import { SportsService } from './sports.service';
 import { ErrorObj } from '../errModel';
-import { Sports } from './sports.schema';
+import { CarsService } from './cars.service';
 
 
-@Controller('sports')
-export class SportsController {
-  constructor(private readonly sportsService: SportsService,
+@Controller('cars')
+export class CarsController {
+  constructor(private readonly carsService: CarsService,
     private readonly errService: ErrorObj,
     ) {}
 
@@ -29,19 +28,19 @@ export class SportsController {
   //   return { id: usersId };
   // }
 
-  @Post('createSports')
+  @Post('createCars')
   async createNewSport(@Body() data, ): Promise<any> {
     try {
-      if (!data.football) {
-        return this.errService.response(true, 'Please enter an  football.');
-      } else if (!data.usersId) {
-        return this.errService.response(true, 'Please enter an userId');
-      } else if (!data.basketball) {
-        return this.errService.response(true, 'Please enter the basketball.');
+      if (!data.name) {
+        return this.errService.response(true, 'Please enter a car name.');
+      } else if (!data.price) {
+        return this.errService.response(true, 'Please enter a car price ');
+      } else if (!data.piece) {
+        return this.errService.response(true, 'Please enter a car piece');
       } 
       else {
-        await this.sportsService.createSport(data);
-        return this.errService.response(false, 'sports created');
+        await this.carsService.createSport(data);
+        return this.errService.response(false, 'cars created');
       }
       }catch (e) {
         throw new Error(e);
@@ -70,11 +69,11 @@ export class SportsController {
   @Get('all')
   async getAllSports(): Promise<any> {
     try {
-      const allSports = await this.sportsService.viewAllSports();
-      if (allSports ) {
-        return this.errService.response(false, allSports);
+      const allCars = await this.carsService.viewAllSports();
+      if (allCars ) {
+        return this.errService.response(false, allCars);
       } else {
-        return this.errService.response(true, 'No sports available');
+        return this.errService.response(true, 'No Cars Available');
       }
     } catch (e) {
       throw new Error(e);
