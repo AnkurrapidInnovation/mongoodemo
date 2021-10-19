@@ -4,20 +4,21 @@ import { Users } from '../users/users.schema';
 import * as mongoose from 'mongoose';
 
 
-export type QualificationsDocument = Qualifications & Document;
+export type ProductsDocument = Products & Document;
 
 @Schema()
-export class Qualifications  {
+export class Products {
   @Prop()
-  HighestDegree: string;
+  productName: string;
 
   @Prop()
-  Name: string;
+  productDescription: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users' })
-  usersId:Users;
+  usersId: Users;
 
- 
+  @Prop()
+  NumberOfSell: Number;
 }
 
-export const QualificationsSchema = SchemaFactory.createForClass(Qualifications);
+export const ProductsSchema = SchemaFactory.createForClass(Products);
