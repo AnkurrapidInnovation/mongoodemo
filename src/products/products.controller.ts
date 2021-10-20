@@ -1,4 +1,17 @@
-import { Body, Controller, Get, Post, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Request,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+// import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ErrorObj } from '../errModel';
 import { ProductsService } from './products.service';
 
@@ -27,7 +40,7 @@ export class ProductsController {
   //   );
   //   return { id: usersId };
   // }
-
+  @UseGuards(JwtAuthGuard)
   @Post('createProduct')
   async createNewProduct(@Body() data): Promise<any> {
     try {
@@ -63,6 +76,7 @@ export class ProductsController {
   //   }
   // }
 
+  @UseGuards(JwtAuthGuard)
   @Get('all')
   async getAllProducts(): Promise<any> {
     try {
@@ -82,4 +96,37 @@ export class ProductsController {
   // const user = await this.sportsService.allSports();
   // return user;
   // }
+
+  // uploading a file
+  // processing it S3/ aZURE
+  // UPLOADING TO SERVER
+
+  // @Post('/upload')
+  // @UseInterceptors(
+  //   FileInterceptors('image', 20, {
+  //     storage: diskStorage({}),
+  //     fileFilter: imageFileFilter,
+  //   }),
+  // )
+  // public async uploadFile(@UploadedFile() file: any) {
+  //   const response = {
+  //     originalname: file.originalname,
+  //     filename: file.filename,
+  //   };
+  //   return response;
+  // }
+
+  // @Post()
+  // @UseInterceptors(FileInterceptor('image'))
+  // uploadFile(@UploadedFiles() file,@Res() res) {
+  //   console.log(file);
+  //   return res.sendFile()
+  // }
+
+  // @Get(':imagepath')
+  // setUploadFile(@Param('imagepath') Image,
+  // @Res() res){
+  //   res.sendFile(image,{root:'uploads'});
+  // }
+  
 }

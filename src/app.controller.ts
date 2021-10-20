@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post} from '@nestjs/common';
 import { AppService } from './app.service';
 import 'dotenv/config';
 
@@ -12,7 +12,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  
+ 
 }
 
 

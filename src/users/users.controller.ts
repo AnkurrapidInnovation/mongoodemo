@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Req, Request, UseGuards } from '@nestjs/co
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { UsersService } from './users.service';
 import { ErrorObj } from '../errModel';
-import bcrypt from 'bcrypt';
+import * as  bcrypt from 'bcrypt';
 import { UsersDto } from './dto/users.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../auth/auth.service';
@@ -36,18 +36,20 @@ export class UsersController {
 
  //User Signup for userPanel
   @Post('createUser')
-  async createNewUser(@Body() data): Promise<any> {
+  async createNewUser(@Body() data:UsersDto): Promise<any> {
     try {
       const userName = await this.usersService.UserByUserName(data.userName);
+      console.log(userName)
       if (userName) {
         return this.errService.response(true, 'Username already has taken');
       }
-      // const userEmail = await this.usersService.findUserByEmail(data.email);
-      // if (userEmail) {
-      //   return this.errService.response(true, 'Email already is in use');
-      // } 
+      const userEmail = await this.usersService.findUserByEmail(data.email);
+      if (userEmail) {
+        return this.errService.response(true, 'Email already is in use');
+      } 
       else {
-        // data.password = await bcrypt.hash(data.password, 10);
+        data.password = await bcrypt.hash(data.password, 10);
+        console.log(data.password)
         data['userRole'] = 3;
         data['createdAt'] = new Date();
         const create = await this.usersService.createNewUser(data);
@@ -67,7 +69,7 @@ export class UsersController {
   return user;
   }
 
-  // @UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard)
   @Post('login')
   async userLogin(@Req() req): Promise<any> {
     try {

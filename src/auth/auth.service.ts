@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
-import bcrypt from 'bcrypt';
+import  * as bcrypt from 'bcrypt';
 import { Model, ObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { TokenLogs, TokenLogsDocument } from './access-token.schema';
@@ -17,11 +17,15 @@ export class AuthService {
 
     async validateUser(username: string, password: string): Promise<any> {
       try {
+      console.log(password)
         const user = await this.usersService.findByUserName(username);
+        console.log(username)
+        console.log(user+"username")
 
         if (user && (await bcrypt.compare(password, user.password))) {
           delete user.password;
           return user;
+
         }
         return null;
       } catch (e) {

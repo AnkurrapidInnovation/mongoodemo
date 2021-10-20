@@ -18,7 +18,12 @@ export class Products {
   usersId: Users;
 
   @Prop()
-  NumberOfSell: Number;
+  Quantity: Number;
+
+  @Prop()
+  Price:Number;
+
+  
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(Products);
