@@ -1,7 +1,4 @@
 
-
-
-
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Users } from '../users/users.schema';
@@ -9,10 +6,10 @@ import * as mongoose from 'mongoose';
 import { Products } from 'src/products/products.schema';
 
 
-export type BuyingsDocument = Buyings & Document;
+export type SellingsDocument = Sellings & Document;
 
 @Schema()
-export class Buyings {
+export class Sellings {
   
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users' })
@@ -32,4 +29,4 @@ export class Buyings {
   
 }
 
-export const BuyingsSchema = SchemaFactory.createForClass(Buyings);
+export const SellingsSchema = SchemaFactory.createForClass(Sellings);

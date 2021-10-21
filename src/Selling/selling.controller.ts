@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Post, Request } from '@nestjs/common';
 import { ErrorObj } from '../errModel';
-import { SellingService } from './selling.service';
+import { SellingsService } from './selling.service';
 
 
 @Controller('selling')
-export class BuyingController {
-  constructor(private readonly sellingsService:SellingService,
+export class SellingController {
+  constructor(private readonly sellingsService:SellingsService,
     private readonly errService: ErrorObj,
     ) {}
 
@@ -31,11 +31,15 @@ export class BuyingController {
   @Post('createSelling')
   async createNewSellings(@Body() data, ): Promise<any> {
     try {
-      if (!data.TotalPrice) {
+      if (!data.price) {
         return this.errService.response(true, 'Please enter an totalprice.');
-    //   } else if (!data.Name) {
-    //     return this.errService.response(true, 'Please enter an name');
-    //   } 
+      } else if (!data.quantity) {
+        return this.errService.response(true, 'Please enter an quantity');
+      } else if (!data.usersId) {
+        return this.errService.response(true, 'Please enter an userId');
+      } else if(!data.productId) {
+        return this.errService.response(true,'please enter an productid')
+      }
       else {
         await this.sellingsService.createBuyings(data);
         return this.errService.response(false, 'sellings created');
@@ -67,9 +71,9 @@ export class BuyingController {
   @Get('all')
   async getAllSellings(): Promise<any> {
     try {
-      const allQualifications = await this.sellingsService.viewAllSellings();
+      const allSellings = await this.sellingsService.viewAllSellings();
       if (allSellings ) {
-        return this.errService.response(false, allQualifications);
+        return this.errService.response(false, allSellings);
       } else {
         return this.errService.response(true, 'No qualifications available');
       }
@@ -85,3 +89,5 @@ export class BuyingController {
   // return user;
   // }
 }
+
+

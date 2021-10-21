@@ -52,7 +52,7 @@ export class SellingsService {
 
   async viewAllSellings2(): Promise<Sellings[]> {
     try {
-      const buyings = await this.buyingsModel.aggregate([
+      const sellings= await this.sellingsModel.aggregate([
         {
           $lookup: {
             from: 'products',
@@ -75,3 +75,5 @@ export class SellingsService {
       throw new Error(e);
     }
   }
+
+}

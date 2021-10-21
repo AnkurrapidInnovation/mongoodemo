@@ -75,3 +75,5 @@ export class BuyingsService {
       throw new Error(e);
     }
   }
+
+}

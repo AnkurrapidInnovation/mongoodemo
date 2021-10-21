@@ -101,32 +101,32 @@ export class ProductsController {
   // processing it S3/ aZURE
   // UPLOADING TO SERVER
 
-  @Post('/upload')
-  @UseInterceptors(
-    FileInterceptors('image', 20, {
-      storage: diskStorage({}),
-      fileFilter: imageFileFilter,
-    }),
-  )
-  public async uploadFile(@UploadedFile() file: any) {
-    const response = {
-      originalname: file.originalname,
-      filename: file.filename,
-    };
-    return response;
-  }
+  // @Post('/upload')
+  // @UseInterceptors(
+  //   FileInterceptors('image', 20, {
+  //     storage: diskStorage({}),
+  //     fileFilter: imageFileFilter,
+  //   }),
+  // )
+  // public async uploadFile(@UploadedFile() file: any) {
+  //   const response = {
+  //     originalname: file.originalname,
+  //     filename: file.filename,
+  //   };
+  //   return response;
+  // }
 
-  @Post()
-  @UseInterceptors(FileInterceptor('image'))
-  uploadFile(@UploadedFiles() file,@Res() res) {
-    console.log(file);
-    return res.sendFile()
-  }
+  // @Post()
+  // @UseInterceptors(FileInterceptor('image'))
+  // uploadFile(@UploadedFiles() file,@Res() res) {
+  //   console.log(file);
+  //   return res.sendFile()
+  // }
 
-  @Get(':imagepath')
-  setUploadFile(@Param('imagepath') Image,
-  @Res() res){
-    res.sendFile(image,{root:'uploads'});
-  }
+  // @Get(':imagepath')
+  // setUploadFile(@Param('imagepath') Image,
+  // @Res() res){
+  //   res.sendFile(image,{root:'uploads'});
+  // }
   
 }

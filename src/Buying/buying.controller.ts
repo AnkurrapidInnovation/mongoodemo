@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Post, Request } from '@nestjs/common';
 import { ErrorObj } from '../errModel';
-import { BuyingService } from './qualification.service';
+import { BuyingsService } from './buying.service';
 
 
 @Controller('buying')
 export class BuyingController {
-  constructor(private readonly buyingsService:BuyingService,
+  constructor(private readonly buyingsService:BuyingsService,
     private readonly errService: ErrorObj,
     ) {}
 
@@ -31,14 +31,19 @@ export class BuyingController {
   @Post('createBuying')
   async createNewBuyings(@Body() data, ): Promise<any> {
     try {
-      if (!data.HighestDegree) {
-        return this.errService.response(true, 'Please enter an  highetdegree.');
-      } else if (!data.Name) {
-        return this.errService.response(true, 'Please enter an name');
-      } 
+      if (!data.price) {
+        return this.errService.response(true, 'Please enter a price.');
+      } else if (!data.quantity) {
+        return this.errService.response(true, 'Please enter an quantity');
+      } else if (!data.usersId) {
+        return this.errService.response(true, 'Please enter an userId');
+      } else if(!data.productId) {
+        return this.errService.response(true,'please enter an productid')
+      }
+
       else {
-        await this.buyingsService.createQualifications(data);
-        return this.errService.response(false, 'qualifications created');
+        await this.buyingsService.createBuyings(data);
+        return this.errService.response(false, 'buy created');
       }
       }catch (e) {
         throw new Error(e);
@@ -67,7 +72,7 @@ export class BuyingController {
   @Get('all')
   async getAllQualifications(): Promise<any> {
     try {
-      const allQualifications = await this.qualificationsService.viewAllQualifications();
+      const allQualifications = await this.buyingsService.viewAllBuyings();
       if (allQualifications ) {
         return this.errService.response(false, allQualifications);
       } else {
