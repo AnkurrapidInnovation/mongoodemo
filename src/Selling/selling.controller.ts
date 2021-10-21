@@ -29,7 +29,7 @@ export class SellingController {
   // }
 
   @Post('createSelling')
-  async createNewSellings(@Body() data, ): Promise<any> {
+  async createNewSellings(@Body() data ): Promise<any> {
     try {
       if (!data.price) {
         return this.errService.response(true, 'Please enter an totalprice.');
@@ -37,8 +37,8 @@ export class SellingController {
         return this.errService.response(true, 'Please enter an quantity');
       } else if (!data.usersId) {
         return this.errService.response(true, 'Please enter an userId');
-      } else if(!data.productId) {
-        return this.errService.response(true,'please enter an productid')
+      } else if(!data.productsId) {
+        return this.errService.response(true,'please enter an productsid')
       }
       else {
         await this.sellingsService.createBuyings(data);
@@ -75,7 +75,7 @@ export class SellingController {
       if (allSellings ) {
         return this.errService.response(false, allSellings);
       } else {
-        return this.errService.response(true, 'No qualifications available');
+        return this.errService.response(true, ' get all selling');
       }
     } catch (e) {
       throw new Error(e);

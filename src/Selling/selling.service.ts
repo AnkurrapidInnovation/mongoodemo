@@ -34,25 +34,7 @@ export class SellingsService {
             as: 'usersDetails'
           }
         },
-        // {
-        //   $project: {
-        //    football:1,
-        //    basketball:1,
-        //    firstName:{ $arrayElemAt: ['$users.firstName',1] },
-        //    lastName: { $arrayElemAt: ['$users.lastName', 1] },
-        //   }
-        // }
-      ]);
-      return sellings;
-    } catch (e) {
-      throw new Error(e);
-    }
-  }
-  
 
-  async viewAllSellings2(): Promise<Sellings[]> {
-    try {
-      const sellings= await this.sellingsModel.aggregate([
         {
           $lookup: {
             from: 'products',
@@ -75,5 +57,32 @@ export class SellingsService {
       throw new Error(e);
     }
   }
+  
+
+  // async viewAllSellings2(): Promise<Sellings[]> {
+  //   try {
+  //     const sellings= await this.sellingsModel.aggregate([
+  //       {
+  //         $lookup: {
+  //           from: 'products',
+  //           localField: 'productsId',
+  //           foreignField: '_id',
+  //           as: 'productsDetails'
+  //         }
+  //       },
+  //       // {
+  //       //   $project: {
+  //       //    football:1,
+  //       //    basketball:1,
+  //       //    firstName:{ $arrayElemAt: ['$users.firstName',1] },
+  //       //    lastName: { $arrayElemAt: ['$users.lastName', 1] },
+  //       //   }
+  //       // }
+  //     ]);
+  //     return sellings;
+  //   } catch (e) {
+  //     throw new Error(e);
+  //   }
+  // }
 
 }

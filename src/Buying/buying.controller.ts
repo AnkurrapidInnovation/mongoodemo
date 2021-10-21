@@ -29,7 +29,7 @@ export class BuyingController {
   // }
 
   @Post('createBuying')
-  async createNewBuyings(@Body() data, ): Promise<any> {
+  async createNewBuyings(@Body() data ): Promise<any> {
     try {
       if (!data.price) {
         return this.errService.response(true, 'Please enter a price.');
@@ -37,8 +37,8 @@ export class BuyingController {
         return this.errService.response(true, 'Please enter an quantity');
       } else if (!data.usersId) {
         return this.errService.response(true, 'Please enter an userId');
-      } else if(!data.productId) {
-        return this.errService.response(true,'please enter an productid')
+      } else if(!data.productsId) {
+        return this.errService.response(true,'please enter an productsid')
       }
 
       else {
@@ -70,18 +70,32 @@ export class BuyingController {
   // }
 
   @Get('all')
-  async getAllQualifications(): Promise<any> {
+  async getAllproducts(): Promise<any> {
     try {
-      const allQualifications = await this.buyingsService.viewAllBuyings();
-      if (allQualifications ) {
-        return this.errService.response(false, allQualifications);
+      const allProducts = await this.buyingsService.viewAllBuyings();
+      if (allProducts ) {
+        return this.errService.response(false, allProducts);
       } else {
-        return this.errService.response(true, 'No qualifications available');
+        return this.errService.response(true, 'products');
       }
     } catch (e) {
       throw new Error(e);
     }
   }
+
+  // @Get('allproducts')
+  // async getAllproducts2(): Promise<any> {
+  //   try {
+  //     const allProducts2 = await this.buyingsService.viewAllBuyings2();
+  //     if (allProducts2 ) {
+  //       return this.errService.response(false, allProducts2);
+  //     } else {
+  //       return this.errService.response(true, 'products');
+  //     }
+  //   } catch (e) {
+  //     throw new Error(e);
+  //   }
+  // }
  
 
   // @Get('getAllSports')

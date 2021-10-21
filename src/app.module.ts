@@ -8,6 +8,8 @@ import {SportsModule} from './sports/sports.module'
 import {CarsModule} from './cars/cars.module'
 import { AuthModule } from './auth/auth.module';
 import {ProductsModule} from './products/products.module';
+import { BuyingsModule } from './Buying/buying.module';
+import {SellingsModule} from './Selling/selling.module'
 // import { MulterModule } from '@nestjs/platform-express';
 // import {QualificationModule} from './qualification/qualifications.module'
 
@@ -19,6 +21,8 @@ import {ProductsModule} from './products/products.module';
     SportsModule,
     CarsModule,
     ProductsModule,
+    BuyingsModule,
+    SellingsModule,
     // QualificationModule,
     AuthModule,
 

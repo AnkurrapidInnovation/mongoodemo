@@ -34,25 +34,7 @@ export class BuyingsService {
             as: 'usersDetails'
           }
         },
-        // {
-        //   $project: {
-        //    football:1,
-        //    basketball:1,
-        //    firstName:{ $arrayElemAt: ['$users.firstName',1] },
-        //    lastName: { $arrayElemAt: ['$users.lastName', 1] },
-        //   }
-        // }
-      ]);
-      return buyings;
-    } catch (e) {
-      throw new Error(e);
-    }
-  }
-  
 
-  async viewAllBuyings2(): Promise<Buyings[]> {
-    try {
-      const buyings = await this.buyingsModel.aggregate([
         {
           $lookup: {
             from: 'products',
@@ -75,5 +57,32 @@ export class BuyingsService {
       throw new Error(e);
     }
   }
+  
+
+  // async viewAllBuyings2(): Promise<Buyings[]> {
+  //   try {
+  //     const buyings = await this.buyingsModel.aggregate([
+  //       {
+  //         $lookup: {
+  //           from: 'products',
+  //           localField: 'productsId',
+  //           foreignField: '_id',
+  //           as: 'productsDetails'
+  //         }
+  //       },
+  //       // {
+  //       //   $project: {
+  //       //    football:1,
+  //       //    basketball:1,
+  //       //    firstName:{ $arrayElemAt: ['$users.firstName',1] },
+  //       //    lastName: { $arrayElemAt: ['$users.lastName', 1] },
+  //       //   }
+  //       // }
+  //     ]);
+  //     return buyings;
+  //   } catch (e) {
+  //     throw new Error(e);
+  //   }
+  // }
 
 }

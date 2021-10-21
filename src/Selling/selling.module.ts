@@ -15,4 +15,4 @@ import { SellingsService } from './selling.service';
   controllers: [SellingController],
   providers: [SellingsService, ErrorObj],
 })
-export class BuyingsModule {}
+export class SellingsModule {}

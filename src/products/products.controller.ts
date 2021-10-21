@@ -7,11 +7,16 @@ import {
   Request,
   Res,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import dbConfig from 'dbconfig';
+import { diskStorage } from 'multer';
 // import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { fileURLToPath } from 'url';
 import { ErrorObj } from '../errModel';
 import { ProductsService } from './products.service';
 
@@ -51,8 +56,8 @@ export class ProductsController {
           true,
           'Please enter an productdescripton',
         );
-      } else if (!data.NumberofSell) {
-        return this.errService.response(true, 'Please enter the numberofsell.');
+      } else if (!data.quantity) {
+        return this.errService.response(true, 'Please enter the quantity.');
       } else {
         await this.productsService.createProduct(data);
         return this.errService.response(false, 'products created');
@@ -128,5 +133,33 @@ export class ProductsController {
   // @Res() res){
   //   res.sendFile(image,{root:'uploads'});
   // }
+
+//   @Post('upload')
+// @UseInterceptors(FileInterceptor('file'))
+// uploadFile(@UploadedFile() file: Express.Multer.File) {
+//   console.log(file);
+// }
+
+  @Post('upload')
+  @UseInterceptors(
+    FilesInterceptor('images', 20, {
+      storage: diskStorage({ 
+        destination: './files',
+        filename: (req, file, callback) => {
+          const fileNameSplit = file.originalname.split(".");
+          const fileExt = fileNameSplit[fileNameSplit.length-1];
+          // const name = file.originalname.split('.')[0];
+          // const fileExtName = extname(file.originalname);
+          // const randomName = Date.now();
+          callback(null, `$(Date.now()).${fileExt}`);
+        }
+      }),
+    }))
+
+    async save(@UploadedFiles() images,  @Body()  FileUploadDTO): Promise<any> {
+      console.log(images);
+      return
+    }
+      
   
 }
